@@ -14,6 +14,7 @@ export const UsernameForm = ({
   onNext: (username: string) => void;
 }) => {
   const [username, setUsername] = useState("");
+  const [firstName,setFirstName] = useState("");
   const [error, setError] = useState("");
   const theme = useCustomTheme();
 
