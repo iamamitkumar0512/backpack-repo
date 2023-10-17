@@ -1,5 +1,5 @@
 import { type FormEvent, useCallback, useEffect, useState } from "react";
-import { PrimaryButton,TextInput } from "@coral-xyz/react-common";
+import { PrimaryButton, TextInput } from "@coral-xyz/react-common";
 import { useCustomTheme } from "@coral-xyz/themes";
 import { AlternateEmail } from "@mui/icons-material";
 import { Box, InputAdornment } from "@mui/material";
@@ -14,7 +14,7 @@ export const UsernameForm = ({
   onNext: (username: string) => void;
 }) => {
   const [username, setUsername] = useState("");
-  const [firstName,setFirstName] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [error, setError] = useState("");
   const theme = useCustomTheme();
 
@@ -74,6 +74,70 @@ export const UsernameForm = ({
           marginBottom: "16px",
         }}
       >
+        <Box style={{ marginBottom: "16px" }}>
+          <TextInput
+            inputProps={{
+              name: "username",
+              autoComplete: "off",
+              spellCheck: "false",
+              autoFocus: true,
+            }}
+            placeholder="FirstName"
+            type="text"
+            value={username}
+            setValue={(e) => {
+              setUsername(
+                e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, "")
+              );
+            }}
+            error={error ? true : false}
+            errorMessage={error}
+            startAdornment={
+              <InputAdornment position="start">
+                <AlternateEmail
+                  style={{
+                    color: theme.custom.colors.secondary,
+                    fontSize: 18,
+                    marginRight: -2,
+                    userSelect: "none",
+                  }}
+                />
+              </InputAdornment>
+            }
+          />
+        </Box>
+        <Box style={{ marginBottom: "16px" }}>
+          <TextInput
+            inputProps={{
+              name: "username",
+              autoComplete: "off",
+              spellCheck: "false",
+              autoFocus: true,
+            }}
+            placeholder="LastName"
+            type="text"
+            value={username}
+            setValue={(e) => {
+              setUsername(
+                e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, "")
+              );
+            }}
+            error={error ? true : false}
+            errorMessage={error}
+            startAdornment={
+              <InputAdornment position="start">
+                <AlternateEmail
+                  style={{
+                    color: theme.custom.colors.secondary,
+                    fontSize: 18,
+                    marginRight: -2,
+                    userSelect: "none",
+                  }}
+                />
+              </InputAdornment>
+            }
+          />
+        </Box>
         <Box style={{ marginBottom: "16px" }}>
           <TextInput
             inputProps={{
