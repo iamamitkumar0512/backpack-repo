@@ -11,16 +11,17 @@ export const UsernameForm = ({
   onNext,
 }: {
   inviteCode: string;
-  onNext: (username: string) => void;
+  onNext: (username: string, firstName: string, lastName: string) => void;
 }) => {
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [error, setError] = useState("");
   const theme = useCustomTheme();
 
   useEffect(() => {
     setError("");
-  }, [username]);
+  }, [username, firstName, lastName]);
 
   const handleSubmit = useCallback(
     async (e: FormEvent) => {
@@ -35,12 +36,12 @@ export const UsernameForm = ({
         const json = await res.json();
         if (!res.ok) throw new Error(json.message || "There was an error");
 
-        onNext(username);
+        onNext(username, firstName, lastName);
       } catch (err: any) {
         setError(err.message);
       }
     },
-    [username]
+    [username, firstName, lastName]
   );
 
   return (
@@ -54,9 +55,9 @@ export const UsernameForm = ({
         justifyContent: "space-between",
       }}
     >
-      <Box style={{ margin: "24px" }}>
+      <Box style={{ margin: "12px" }}>
         <Header text="Claim your username" />
-        <SubtextParagraph style={{ margin: "16px 0" }}>
+        <SubtextParagraph style={{ margin: "8px 0" }}>
           Others can see and find you by this username, and it will be
           associated with your primary wallet address.
           <br />
@@ -71,24 +72,22 @@ export const UsernameForm = ({
         style={{
           marginLeft: "16px",
           marginRight: "16px",
-          marginBottom: "16px",
+          marginBottom: "8px",
         }}
       >
-        <Box style={{ marginBottom: "16px" }}>
+        <Box style={{ marginBottom: "2px" }}>
           <TextInput
             inputProps={{
-              name: "username",
+              name: "firstName",
               autoComplete: "off",
               spellCheck: "false",
               autoFocus: true,
             }}
             placeholder="FirstName"
             type="text"
-            value={username}
+            value={firstName}
             setValue={(e) => {
-              setUsername(
-                e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, "")
-              );
+              setFirstName(e.target.value.toLowerCase());
             }}
             error={error ? true : false}
             errorMessage={error}
@@ -106,21 +105,19 @@ export const UsernameForm = ({
             }
           />
         </Box>
-        <Box style={{ marginBottom: "16px" }}>
+        <Box style={{ marginBottom: "2px" }}>
           <TextInput
             inputProps={{
-              name: "username",
+              name: "lastName",
               autoComplete: "off",
               spellCheck: "false",
               autoFocus: true,
             }}
             placeholder="LastName"
             type="text"
-            value={username}
+            value={lastName}
             setValue={(e) => {
-              setUsername(
-                e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, "")
-              );
+              setLastName(e.target.value.toLowerCase());
             }}
             error={error ? true : false}
             errorMessage={error}
